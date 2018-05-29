@@ -12,13 +12,27 @@ export function warn (error_text:string, is_warn = false) : void {
 }
 
 // only loop own property
-export function is_empty_obj (obj:any) : boolean {
+export function is_empty_obj (obj:Object) : boolean {
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       return false;
     }
   }
   return true;
+}
+
+export function bind (fn:Function, ctx:Object): Function {
+  function boundFn (a) {
+    const l: number = arguments.length;
+    return l
+      ? l > 1
+        ? fn.apply(ctx, arguments)
+        : fn.call(ctx, a)
+      : fn.call(ctx);
+  }
+  // record original fn length
+  (<any>boundFn)._length = fn.length;
+  return boundFn;
 }
 
 export function is_string (string:any) : boolean {
