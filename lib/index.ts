@@ -2,8 +2,10 @@ import {
   init,
   expand_touch,
   init_default_style,
-  ClickInstance,
 } from './operate_dom';
+import {
+  ClickInstance,
+} from './event';
 import { warn, is_string, is_empty_obj } from './utils';
 
 export interface DynamicAttr {
@@ -48,6 +50,10 @@ export class Slide {
   public onchange: (value:number, el:HTMLElement) => void;
   public oninput: (value:number, el:HTMLElement) => void;
   public opts: Options;
+  public diff_xy: {
+    x: number;
+    y: number;
+  };
 
   public constructor (opts:Parameters) {
     if (!opts.el) {

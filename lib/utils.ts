@@ -1,3 +1,5 @@
+import { Slide } from '.';
+
 function get_class_string (val:any) : string {
   return Object.prototype.toString.call(val);
 }
@@ -21,7 +23,7 @@ export function is_empty_obj (obj:Object) : boolean {
   return true;
 }
 
-export function bind (fn:Function, ctx:Object): Function {
+export function bind (fn:Function, ctx:Object) : Function {
   function boundFn (a) {
     const l: number = arguments.length;
     return l

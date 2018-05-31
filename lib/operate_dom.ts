@@ -1,16 +1,14 @@
 import { Slide, Parameters } from './index';
 import { bind } from './utils';
 import {
-  mousedown,
   get_now_percentage,
   get_width,
   get_height,
-  set_click_position,
 } from './compute';
-
-export interface ClickInstance {
-  remove () : void;
-}
+import {
+  mousedown,
+  set_click_position,
+} from './event';
 
 export function init (ctx:Slide) : void {
     const { dom, direction, touch_area, click_el_index, expand_touch_dom } = ctx.opts;
