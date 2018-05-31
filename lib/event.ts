@@ -1,8 +1,10 @@
 import { Slide, Parameters } from './index';
+import { alter_slider_bar } from './operate_dom';
 import { bind } from './utils';
 import { 
   get_client_xy,
   get_now_percentage,
+  get_percent,
 } from './compute';
 
 export type DeEvent = TouchEvent | MouseEvent;
@@ -20,8 +22,8 @@ export function mousedown (e:DeEvent) : void {
   // 清除点击事件，避免干扰
   click_instance.remove();
 
-  ctx.diff_xy.x = x - dom.offsetLeft;
-  ctx.diff_xy.y = y - dom.offsetTop;
+  ctx.start_xy.x = x - dom.offsetLeft;
+  ctx.start_xy.y = y - dom.offsetTop;
 
   if (e.type !== 'touchstart') {
     document.onmousemove = (<any>bind(mousemove, ctx));
@@ -34,7 +36,7 @@ export function mousedown (e:DeEvent) : void {
     return;
   }
 
-    // 移动端
+  // 移动端
   document.addEventListener('touchmove', touchmove);
   document.addEventListener('touchend', touchend);
   function touchend (e:TouchEvent) {
@@ -47,7 +49,44 @@ export function mousedown (e:DeEvent) : void {
 
 
 export function mousemove (e:DeEvent) : void {
-  const ctx = this;
+  const ctx:Slide = this;
+  const is_phone = e.type === 'touchmove';
+  !is_phone && e.preventDefault();
+
+  const { 
+      dom,
+      parent,
+      total_x,
+      total_y,
+      revise_height,
+      revise_width,
+      last_y,
+      direction,
+  } = ctx.opts;
+  const { start_xy } = ctx;
+  const { x, y } = get_client_xy(e);
+
+  let left:number = x - start_xy.x;
+  let top:number = y - start_xy.y;
+
+  // limit slide
+  if (direction === 'x') {
+    const max = total_x - revise_width;
+    const min = -revise_width;
+    left = Math.max(Math.min(left, max), min);
+  }
+
+  if (direction === 'y') {
+    const normal_y = total_y - last_y;
+    const max = normal_y - revise_height / 2;
+    const min = -(last_y + revise_height / 2);
+    top = Math.max(Math.min(top, max), min);
+  }
+
+  const precent = get_percent(ctx, left, top);
+  // Assign value to dom's "value" property.
+  alter_slider_bar(dom, <HTMLElement>parent, direction, precent);
+  dispatch(ctx, dom, 'input')
 }
 
 export function  mouseup_touchend_hook (ctx:Slide, e:DeEvent) {

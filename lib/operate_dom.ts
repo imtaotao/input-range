@@ -63,3 +63,14 @@ export type pointTouchArea = Parameters['point_touch_area']
 export function expand_touch (ctx:Slide, el:HTMLElement, point_touch_area:pointTouchArea) : void {
 
 }
+
+export function alter_slider_bar (
+    dom:HTMLElement,
+    parent:HTMLElement,
+    direction:'x' | 'y',
+    precent:number,
+) : void {
+  const attr = direction === 'x' ? 'width' : 'height';
+  parent.style[attr] = precent * 100 + '%';
+  (<any>parent).value = precent;
+}

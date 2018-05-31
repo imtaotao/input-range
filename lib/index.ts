@@ -50,7 +50,7 @@ export class Slide {
   public onchange: (value:number, el:HTMLElement) => void;
   public oninput: (value:number, el:HTMLElement) => void;
   public opts: Options;
-  public diff_xy: {
+  public start_xy: {
     x: number;
     y: number;
   };
@@ -78,22 +78,14 @@ export class Slide {
     }
   
     if (opts.point_touch_area && !is_empty_obj(opts.point_touch_area)) {
-      this.expand_touch((<HTMLElement>opts.el), opts.point_touch_area);
+      expand_touch(this, (<HTMLElement>opts.el), opts.point_touch_area);
     }
   
-    this.init_default_style();
+    init_default_style(this);
   }
   
   public init () : void {
     init(this);
-  }
-
-  private expand_touch (el:HTMLElement, point_touch_area:Parameters['point_touch_area']) : void { 
-    expand_touch(this, el, point_touch_area);
-  }
-
-  private init_default_style () : void {
-    init_default_style(this);
   }
 }
 
