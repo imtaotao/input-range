@@ -1,10 +1,10 @@
 import { Slide, Parameters } from './index';
-import { alter_slider_bar } from './operate_dom';
 import { bind } from './utils';
-import { 
+import {
   get_client_xy,
   get_now_percentage,
   get_percent,
+  alter_slider_bar,
 } from './compute';
 
 export type DeEvent = TouchEvent | MouseEvent;
@@ -28,9 +28,9 @@ export function mousedown (e:DeEvent) : void {
   if (e.type !== 'touchstart') {
     document.onmousemove = (<any>bind(mousemove, ctx));
     document.onmouseup = function (e:MouseEvent) {
-      dispatch(ctx, <HTMLElement>parent, 'change');
-      document.onmousemove = null;
-      document.onmouseup = null;
+      dispatch(ctx, 'change');
+      (<any>document.onmousemove) = null;
+      (<any>document.onmouseup) = null;
       mouseup_touchend_hook(ctx, e);
     }
     return;
@@ -40,7 +40,7 @@ export function mousedown (e:DeEvent) : void {
   document.addEventListener('touchmove', touchmove);
   document.addEventListener('touchend', touchend);
   function touchend (e:TouchEvent) {
-    dispatch(ctx, <HTMLElement>parent, 'change');
+    dispatch(ctx, 'change');
     document.removeEventListener('touchmove', touchmove);
     document.removeEventListener('touchend', touchend);
     mouseup_touchend_hook(ctx, e);
@@ -53,7 +53,7 @@ export function mousemove (e:DeEvent) : void {
   const is_phone = e.type === 'touchmove';
   !is_phone && e.preventDefault();
 
-  const { 
+  const {
       dom,
       parent,
       total_x,
@@ -85,8 +85,7 @@ export function mousemove (e:DeEvent) : void {
 
   const precent = get_percent(ctx, left, top);
   // Assign value to dom's "value" property.
-  alter_slider_bar(dom, <HTMLElement>parent, direction, precent);
-  dispatch(ctx, dom, 'input')
+  alter_slider_bar(ctx, precent);
 }
 
 export function  mouseup_touchend_hook (ctx:Slide, e:DeEvent) {
@@ -107,11 +106,12 @@ export function set_click_position (context:Slide, parent:HTMLElement) : ClickIn
   return { remove () {} };
 }
 
-export function dispatch (ctx:Slide, el:HTMLElement, event_type:string) : void {
+export function dispatch (ctx:Slide, event_type:string) : void {
   type DefinitEvent = Event & { value?: number; } ;
+  const parent:any = ctx.opts.parent;
   const event:DefinitEvent = new Event(event_type);
 
-  event.value = (<any>el).value;
-  el.dispatchEvent(event);
-  ctx['on' + event_type]((<any>el).value, el);
+  event.value = parent.slide_value;
+  parent.dispatchEvent(event);
+  ctx['on' + event_type](parent.slide_value, parent);
 }

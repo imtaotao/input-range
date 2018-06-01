@@ -20,7 +20,9 @@
     "tslib": "^1.9.0",
     "typescript": "2.5.3",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^2.9.7",
+    "style-loader": "^0.18.2",
+    "css-loader": "^0.28.4"
   },
   "keywords": [
     "input",

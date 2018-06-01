@@ -48,3 +48,11 @@ export function get_percent (ctx:Slide, left:number, top:number) : any /* Actual
     return (normal_y - top) / total_y;
   }
 }
+
+export function alter_slider_bar (ctx:Slide, precent:number) : void {
+  const { dom, parent, direction } = ctx.opts;
+
+  const attr = direction === 'x' ? 'width' : 'height';
+  (<HTMLElement>parent).style[attr] = precent * 100 + '%';
+  (<any>parent).slide_value = precent;
+}
