@@ -31,7 +31,7 @@ export function init (ctx:Slide) : void {
   const total_x = get_width(grandpa);
   const total_y = get_height(grandpa);
 
-  // 剩下的的长度
+  // Compute the remaining distance.
   const last_x = total_x * (1 - now_percentage);
   const last_y = total_y * (1 - now_percentage);
 
