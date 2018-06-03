@@ -1,8 +1,13 @@
 import { Slide } from './index';
 import { ClickInstance } from './event';
 
-export function get_now_percentage (context:Slide, parent:HTMLElement) : number {
-  return 0;
+export function get_now_percentage (ctx:Slide, parent:HTMLElement) : number {
+  const direction = ctx.opts.direction;
+  const grandfather = parent.parentElement as HTMLElement;
+
+  return direction === 'x'
+    ? get_width(parent) / get_width(grandfather)
+    : get_height(parent) / get_height(grandfather);
 }
 
 export function get_width (dom:HTMLElement) : number {
@@ -54,5 +59,4 @@ export function alter_slider_bar (ctx:Slide, precent:number) : void {
 
   const attr = direction === 'x' ? 'width' : 'height';
   (<HTMLElement>parent).style[attr] = precent * 100 + '%';
-  (<any>parent).slide_value = precent;
 }

@@ -11,10 +11,12 @@ import {
   ClickInstance,
   mousedown,
   set_click_position,
+  dispatch,
 } from './event';
 import {
   warn,
   bind,
+  is_undef,
   is_string,
   is_empty_obj,
 } from './utils';
@@ -55,11 +57,13 @@ export interface Parameters {
 
 export interface SlideTypes {
   init () : void;
+  dispatch (event_type:'input' | 'change', value:number) : void;
 }
 
 export class Slide implements SlideTypes {
-  public onchange: (value:number, el:HTMLElement) => void;
-  public oninput: (value:number, el:HTMLElement) => void;
+  public value:number;
+  public onchange: (value:number, el:HTMLElement, ctx:Slide) => void;
+  public oninput: (value:number, el:HTMLElement, ctx:Slide) => void;
   public opts: Options;
   public start_xy: {
     x: number;
@@ -88,10 +92,16 @@ export class Slide implements SlideTypes {
       direction: options.direction
         ? (<'x' | 'y'>options.direction.toLocaleLowerCase())
         : 'x',
-      pointer_events: options.pointer_events || false,
+      pointer_events: !is_undef(options.pointer_events)
+        ? options.pointer_events
+        : true,
       touch_area: options.touch_area || 100,
       click_el_index: options.click_el_index || 0,
       expand_touch_dom: 0,
+    }
+    
+    if (this.opts.direction !== 'x' && this.opts.direction !== 'y') {
+      warn('【options direction】 must be x or y')
     }
 
     if (options.point_touch_area && !is_empty_obj(options.point_touch_area)) {
@@ -103,6 +113,14 @@ export class Slide implements SlideTypes {
 
   public init () : void {
     init(this);
+  }
+
+  public dispatch (event_type:'input' | 'change', value:number) : void {
+    if (value < 0 || value > 1) {
+      warn(`【${value}】 is not between 0 and 1`);
+    }
+
+    dispatch(this, event_type, value);
   }
 }
 
@@ -125,7 +143,7 @@ export function init (ctx:Slide) : void {
   const last_y = total_y * (1 - now_percentage);
 
   const click_instance = set_click_position(ctx, parent);
-  (<any>parent).value = now_percentage;
+  ctx.value = now_percentage;
 
   // 移动端与浏览器端添加事件
   dom.onmousedown = init_event_fn;

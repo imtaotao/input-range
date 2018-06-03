@@ -37,6 +37,14 @@ export function bind (fn:Function, ctx:Object) : Function {
   return boundFn;
 }
 
+export function random_num (min = 0, max = 100000) : number {
+  return parseInt(<any>(Math.random() * (max - min + 1) + min));
+}
+
+export function is_undef (val:any) : boolean {
+  return val === undefined || val === null;
+}
+
 export function is_string (string:any) : boolean {
   return get_class_string(string) === '[object String]';
 }

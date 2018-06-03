@@ -1,10 +1,12 @@
-import { Slide, Parameters } from './index';
-import { bind } from './utils';
+import { init, Slide, Parameters } from './index';
+import { bind, random_num } from './utils';
 import {
-  get_client_xy,
-  get_now_percentage,
+  get_width,
+  get_height,
   get_percent,
+  get_client_xy,
   alter_slider_bar,
+  get_now_percentage,
 } from './compute';
 
 export type DeEvent = TouchEvent | MouseEvent;
@@ -28,7 +30,7 @@ export function mousedown (e:DeEvent) : void {
   if (e.type !== 'touchstart') {
     document.onmousemove = (<any>bind(mousemove, ctx));
     document.onmouseup = function (e:MouseEvent) {
-      dispatch(ctx, 'change');
+      dispatch(ctx, 'change', ctx.value);
       (<any>document.onmousemove) = null;
       (<any>document.onmouseup) = null;
       mouseup_touchend_hook(ctx, e);
@@ -40,7 +42,7 @@ export function mousedown (e:DeEvent) : void {
   document.addEventListener('touchmove', touchmove);
   document.addEventListener('touchend', touchend);
   function touchend (e:TouchEvent) {
-    dispatch(ctx, 'change');
+    dispatch(ctx, 'change', ctx.value);
     document.removeEventListener('touchmove', touchmove);
     document.removeEventListener('touchend', touchend);
     mouseup_touchend_hook(ctx, e);
@@ -84,8 +86,7 @@ export function mousemove (e:DeEvent) : void {
   }
 
   const precent = get_percent(ctx, left, top);
-  // Assign value to dom's "value" property.
-  alter_slider_bar(ctx, precent);
+  dispatch(ctx, 'input', precent);
 }
 
 export function  mouseup_touchend_hook (ctx:Slide, e:DeEvent) {
@@ -102,16 +103,65 @@ export function  mouseup_touchend_hook (ctx:Slide, e:DeEvent) {
   }, time);
 }
 
-export function set_click_position (context:Slide, parent:HTMLElement) : ClickInstance {
-  return { remove () {} };
-}
+export function dispatch (ctx:Slide, event_type:string, precent:number) : void {
+  // alter slide bar position.
+  alter_slider_bar(ctx, precent);
+  ctx.value = precent;
 
-export function dispatch (ctx:Slide, event_type:string) : void {
   type DefinitEvent = Event & { value?: number; } ;
   const parent:any = ctx.opts.parent;
   const event:DefinitEvent = new Event(event_type);
 
-  event.value = parent.slide_value;
+  // response event.
+  event.value = precent;
   parent.dispatchEvent(event);
-  ctx['on' + event_type](parent.slide_value, parent);
+  ctx['on' + event_type](precent, parent, ctx);
+}
+
+export function set_click_position (ctx:Slide, parent:HTMLElement) : ClickInstance {
+  const { direction, click_el_index } = ctx.opts;
+  const sibling = (<HTMLElement>parent.parentElement).children[click_el_index] as HTMLElement;
+  let random_number:number;
+  
+  if (sibling) {
+    sibling.onclick = (event:MouseEvent) => {
+      const self_random_num = random_number = random_num();
+      const { layerX, layerY } = event;
+
+      const precent = direction === 'x'
+        ? layerX / get_width(sibling)
+        : 1 - layerY / get_height(sibling);
+
+      parent.style.transition = 'all 0.2s ease';
+      remove_init_event(ctx);
+      dispatch(ctx, 'change', precent);
+
+      // reset slide state.
+      setTimeout(() => {
+        if (self_random_num !== random_number) { return; }
+        parent.style.transition = '';
+        init(ctx);
+      }, 205)
+    }
+
+    return {
+      remove () {
+        (<any>sibling.onclick) = null;
+      }
+    };
+  }
+  return { remove () {} };
+}
+
+function remove_init_event (ctx:Slide) : void {
+  const { dom, init_event_fn, expand_touch_dom} = ctx.opts;
+  if (!init_event_fn) { return; }
+
+  (<any>dom).onmousedown = null;
+  dom.removeEventListener('touchstart', init_event_fn);
+
+  if (expand_touch_dom) {
+    (<any>expand_touch_dom).onmousedown = null;
+    expand_touch_dom.removeEventListener('touchstart', init_event_fn);
+  }
 }

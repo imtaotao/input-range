@@ -7,5 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   slide.init();
-  slide.oninput = (...args) => console.log(args);
+  slide.onchange = (value, bar, ctx) => console.log(value);
+  (window as any).s = slide;
 })
