@@ -55,11 +55,11 @@ function get_match (info:string, is_chorme:number) : StackDetail {
     : /((.+)@)?(.+)\n?/g.exec(info);
 
   if (!match) {
-    return { method: '', detail: info };
+    return { method: 'native code', detail: info };
   }
 
   return {
-    method: match[2] || ' ',
+    method: match[2] || 'anonymous',
     detail: match[
       is_chorme ? 4 : 3
     ],
