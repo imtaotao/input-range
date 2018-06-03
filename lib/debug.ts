@@ -1,20 +1,27 @@
-export function warn (error_text:string, is_warn = false) : void {
+import { Slide } from './index';
+
+export function warn (ctx:Slide | null, error_text:string, is_warn = false) : void {
   const message = `${error_text} --- from input-range.js.`;
+  const handle_error = ctx ? ctx.onerror : null;
 
   try {
     throw Error(message);
   } catch (err) {
-    send_warn(err, is_warn);
+    send_warn(err, handle_error, is_warn);
   }
 }
 
-function send_warn ({ message, stack }, is_warn) : void {
+function send_warn ({ message, stack }, handle_error, is_warn) : void {
   const _stack = get_error_stack(stack);
   const space = '\u0020'.repeat(4);
   let err_str = `[tip]: ${message}\n\n`;
 
   for (const { method, detail } of _stack) {
     err_str += `${space}[${method}] ---> ${detail}\n`;
+  }
+
+  if (handle_error && handle_error(message, _stack, err_str) !== false) {
+    return;
   }
 
   if (!is_warn) {
@@ -24,10 +31,11 @@ function send_warn ({ message, stack }, is_warn) : void {
   console.warn(err_str);
 }
 
-type StackDetail = {
+export type StackDetail = {
   method: string;
   detail: string;
 }
+
 function get_error_stack (stack_msg) : StackDetail[] {
   const arr = stack_msg.replace(/↵/g, '\n').split('\n');
   const stack:StackDetail[] = [];

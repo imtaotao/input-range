@@ -1,4 +1,4 @@
-import { warn } from './debug';
+import { warn, StackDetail } from './debug';
 import { expand_touch, init_default_style } from './expand';
 
 import {
@@ -75,19 +75,22 @@ export class Slide implements SlideTypes {
   public value:number;
   public onchange: (value:number, el:HTMLElement, ctx:Slide) => void;
   public oninput: (value:number, el:HTMLElement, ctx:Slide) => void;
+  public onerror: (msg:string, stack:StackDetail, error_str:string) => void;
   public opts: Options;
 
   public constructor (options:Parameters) {
     if (!options.point) {
-      warn(`【${options.point}】 must a HTMLElement or query string`);
+      warn(null, `【${options.point}】 must a HTMLElement or query string`);
     }
     if (is_string(options.point)) {
       (<Element | null>options.point) = document.querySelector((<string>options.point));
-      !options.point && warn(`Can't get HTMLElement from【${options.point}】`);
+      !options.point && warn(null, `Can't get HTMLElement from【${options.point}】`);
     }
 
+    // hook functions
     this.onchange = () => {};
     this.oninput = () => {};
+    this.onerror = () => false;
 
     // set default value
     (<any>this.opts) = {
@@ -112,7 +115,7 @@ export class Slide implements SlideTypes {
       : true;
 
     if (this.opts.direction !== 'x' && this.opts.direction !== 'y') {
-      warn('【options direction】 must be x or y')
+      warn(this, '【options direction】 must be x or y')
     }
 
     if (options.expand_touch_area && !is_empty_obj(options.expand_touch_area)) {
@@ -130,7 +133,7 @@ export class Slide implements SlideTypes {
 
   public dispatch (event_type:'input' | 'change', value:number) : Slide {
     if (value < 0 || value > 1) {
-      warn(`【${value}】 is not between 0 and 1`);
+      warn(this, `【${value}】 is not between 0 and 1`);
     }
     dispatch(this, event_type, value);
 
@@ -138,14 +141,14 @@ export class Slide implements SlideTypes {
   }
 
   public prohibit_click (prohibit:boolean) : Slide {
-    !is_boolen(prohibit) && warn('【prohibit】 must be true or false');
+    !is_boolen(prohibit) && warn(this, '【prohibit】 must be true or false');
     this.opts.prohibit_click = prohibit;
 
     return this;
   }
 
   public prohibit_move (prohibit:boolean) : Slide {
-    !is_boolen(prohibit) && warn('【prohibit】 must be true or false');
+    !is_boolen(prohibit) && warn(this, '【prohibit】 must be true or false');
     this.opts.prohibit_move = prohibit;
 
     return this;

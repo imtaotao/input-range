@@ -19,7 +19,7 @@ export function init_default_style (ctx:Slide) : void {
   }
 
   if (is_range_err) {
-    warn('【click_el_index】 is not in the correct range');
+    warn(ctx, '【click_el_index】 is not in the correct range');
   }
 
   const position = getComputedStyle(parent).position;
@@ -63,8 +63,8 @@ type ResponseDom = {
   expand_div:HTMLElement;
 }
 function check_and_respose (ctx:Slide, { width, height }) : ResponseDom {
-  is_undef(width) && warn('Missing attribute【width】in expand_touch_area');
-  is_undef(height) && warn('Missing attribute【height】in expand_touch_area');
+  is_undef(width) && warn(ctx, 'Missing attribute【width】in expand_touch_area');
+  is_undef(height) && warn(ctx, 'Missing attribute【height】in expand_touch_area');
   is_number(width) && (width += 'px');
   is_number(height) && (height += 'px');
 

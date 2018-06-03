@@ -17,4 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
   type DefinitEvent = Event & { value?: number };
   (<any>el.parentElement).oninput = (e:DefinitEvent) => console.log(e.value);;
   (window as any).s = slide;
+
+  slide.onerror = (msg, stack, str) => {
+    console.log(msg);
+    console.log(stack);
+    console.error(str);
+  }
+  setTimeout(() => (<any>slide).prohibit_click(1));
 })
