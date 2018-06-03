@@ -1,16 +1,5 @@
-import { Slide } from '.';
-
 function get_class_string (val:any) : string {
   return Object.prototype.toString.call(val);
-}
-
-export function warn (error_text:string, is_warn = false) : void {
-  const message = `${error_text} --- from input-range.js.`;
-
-  if (!is_warn) {
-    throw Error(message);
-  }
-  console.warn(message);
 }
 
 // only loop own property
@@ -51,4 +40,8 @@ export function is_string (string:any) : boolean {
 
 export function is_number (number:any) : boolean {
   return get_class_string(number) === '[object Number]';
+}
+
+export function is_boolen (boolean:any) : boolean {
+  return get_class_string(boolean) === '[object Boolean]';
 }

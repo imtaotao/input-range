@@ -39,9 +39,9 @@ export function get_percent (ctx:Slide, left:number, top:number) : any /* Actual
       revise_width,
       direction,
       last_y,
-      touch_area
+      limit_area,
   } = ctx.opts;
-  const is_normal_val = (val:number) => val > -touch_area && val < touch_area;
+  const is_normal_val = (val:number) => val > -limit_area && val < limit_area;
 
   if (direction === 'x' && is_normal_val(top)) {
     const nowVal = left + revise_width;

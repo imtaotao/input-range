@@ -1,5 +1,5 @@
-import { init, Slide, Parameters } from './index';
-import { bind, random_num } from './utils';
+import { Slide, Parameters } from './index';
+import { bind, random_num, is_undef } from './utils';
 import {
   get_width,
   get_height,
@@ -15,22 +15,71 @@ export interface ClickInstance {
   remove () : void;
 }
 
+export function init (ctx:Slide) : void {
+  // Avoid "move" and "click" events affecting each other.
+  remove_init_event(ctx);
+
+  const { dom, direction, click_el_index, expand_touch_dom } = ctx.opts;
+  const parent = <HTMLElement>dom.parentElement;
+  const grandpa = <HTMLElement>parent.parentElement;
+  const init_event_fn:any = bind(mousedown, ctx);
+  const now_percentage = get_now_percentage(ctx, parent);
+
+  const revise_width = get_width(dom) / 2;
+  const revise_height = get_height(dom) / 2;
+
+  const total_x = get_width(grandpa);
+  const total_y = get_height(grandpa);
+
+  // 剩下的的长度
+  const last_x = total_x * (1 - now_percentage);
+  const last_y = total_y * (1 - now_percentage);
+
+  const click_instance = set_click_position(ctx, parent);
+  ctx.value = now_percentage;
+
+  // Mobile and browser add events.
+  dom.onmousedown = init_event_fn;
+  dom.addEventListener('touchstart', init_event_fn);
+
+  // If there is an extension of the click range.
+  if (expand_touch_dom) {
+    expand_touch_dom.onmousedown = init_event_fn;
+    expand_touch_dom.addEventListener('touchstart', init_event_fn);
+  }
+
+  ctx.opts = {
+    ...ctx.opts,
+    parent,
+    total_x,
+    total_y,
+    revise_height,
+    revise_width,
+    last_x,
+    last_y,
+    now_percentage,
+    init_event_fn,
+    click_instance,
+  }
+}
+
 export function mousedown (e:DeEvent) : void {
+  if (this.opts.prohibit_move) { return; }
   const ctx:Slide = this;
   const { x, y } = get_client_xy(e);
   const { dom, parent, click_instance } = ctx.opts;
   const touchmove:any = bind(mousemove, ctx);
 
-  // 清除点击事件，避免干扰
+  // Clear click events to avoid interference.
   click_instance.remove();
 
-  ctx.start_xy.x = x - dom.offsetLeft;
-  ctx.start_xy.y = y - dom.offsetTop;
+  ctx.opts.start_xy.x = x - dom.offsetLeft;
+  ctx.opts.start_xy.y = y - dom.offsetTop;
 
   if (e.type !== 'touchstart') {
     document.onmousemove = (<any>bind(mousemove, ctx));
     document.onmouseup = function (e:MouseEvent) {
-      dispatch(ctx, 'change', ctx.value);
+      !ctx.opts.prohibit_move && dispatch(ctx, 'change', ctx.value);
       (<any>document.onmousemove) = null;
       (<any>document.onmouseup) = null;
       mouseup_touchend_hook(ctx, e);
@@ -38,11 +87,11 @@ export function mousedown (e:DeEvent) : void {
     return;
   }
 
-  // 移动端
+  // Mobile
   document.addEventListener('touchmove', touchmove);
   document.addEventListener('touchend', touchend);
   function touchend (e:TouchEvent) {
-    dispatch(ctx, 'change', ctx.value);
+    !ctx.opts.prohibit_move && dispatch(ctx, 'change', ctx.value);
     document.removeEventListener('touchmove', touchmove);
     document.removeEventListener('touchend', touchend);
     mouseup_touchend_hook(ctx, e);
@@ -51,6 +100,7 @@ export function mousedown (e:DeEvent) : void {
 
 
 export function mousemove (e:DeEvent) : void {
+  if (this.opts.prohibit_move) { return; }
   const ctx:Slide = this;
   const is_phone = e.type === 'touchmove';
   !is_phone && e.preventDefault();
@@ -65,7 +115,7 @@ export function mousemove (e:DeEvent) : void {
       last_y,
       direction,
   } = ctx.opts;
-  const { start_xy } = ctx;
+  const start_xy = ctx.opts.start_xy;
   const { x, y } = get_client_xy(e);
 
   let left:number = x - start_xy.x;
@@ -86,7 +136,7 @@ export function mousemove (e:DeEvent) : void {
   }
 
   const precent = get_percent(ctx, left, top);
-  dispatch(ctx, 'input', precent);
+  !is_undef(precent) && dispatch(ctx, 'input', precent);
 }
 
 export function  mouseup_touchend_hook (ctx:Slide, e:DeEvent) {
@@ -97,7 +147,7 @@ export function  mouseup_touchend_hook (ctx:Slide, e:DeEvent) {
   ctx.opts.last_x = total_x * (1 - now_percentage);
   ctx.opts.last_y = total_y * (1 - now_percentage);
 
-  // 在touchend事件结束后重新加上点击事件
+  // Add a click event after "touchend" event ends
   setTimeout(() => {
     set_click_position(ctx, <HTMLElement>parent);
   }, time);
@@ -108,7 +158,7 @@ export function dispatch (ctx:Slide, event_type:string, precent:number) : void {
   alter_slider_bar(ctx, precent);
   ctx.value = precent;
 
-  type DefinitEvent = Event & { value?: number; } ;
+  type DefinitEvent = Event & { value?: number; };
   const parent:any = ctx.opts.parent;
   const event:DefinitEvent = new Event(event_type);
 
@@ -122,9 +172,11 @@ export function set_click_position (ctx:Slide, parent:HTMLElement) : ClickInstan
   const { direction, click_el_index } = ctx.opts;
   const sibling = (<HTMLElement>parent.parentElement).children[click_el_index] as HTMLElement;
   let random_number:number;
-  
+
+  // If HTMLElement exists, continue, Click event need forever add.
   if (sibling) {
     sibling.onclick = (event:MouseEvent) => {
+      if (ctx.opts.prohibit_click) { return; }
       const self_random_num = random_number = random_num();
       const { layerX, layerY } = event;
 
@@ -133,7 +185,6 @@ export function set_click_position (ctx:Slide, parent:HTMLElement) : ClickInstan
         : 1 - layerY / get_height(sibling);
 
       parent.style.transition = 'all 0.2s ease';
-      remove_init_event(ctx);
       dispatch(ctx, 'change', precent);
 
       // reset slide state.
@@ -150,6 +201,8 @@ export function set_click_position (ctx:Slide, parent:HTMLElement) : ClickInstan
       }
     };
   }
+
+  // Return by default.
   return { remove () {} };
 }
 

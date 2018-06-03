@@ -2,7 +2,6 @@
   "compilerOptions": {
     "declaration": true,
     "experimentalDecorators": true,
-    "module": "commonjs",
     "lib": ["dom", "es2016"],
     "importHelpers": true,
     "moduleResolution": "node",
@@ -15,7 +14,8 @@
     "strictNullChecks": true,
     "alwaysStrict":true,
     "allowSyntheticDefaultImports": true,
-    "target": "es5",
+    "module": "ES6",
+    "target": "es6",
     "plugins": [
       { "name": "tslint-language-service"}
     ]
