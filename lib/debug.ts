@@ -1,8 +1,14 @@
 import { Slide } from './index';
 
-export function warn (ctx:Slide | null, error_text:string, is_warn = false) : void {
-  const message = `${error_text} --- from input-range.js.`;
+export function warn (ctx:Slide | null, error_text:string | Error, is_warn = false) : void {
   const handle_error = ctx ? ctx.onerror : null;
+  if (error_text instanceof Error) {
+    error_text.message = `[tip]: ${error_text.message} --- from input-range.js`;
+    send_warn(<any>error_text, handle_error, is_warn);
+    return;
+  }
+
+  const message = `${error_text} --- from input-range.js`;
 
   try {
     throw Error(message);
@@ -11,7 +17,7 @@ export function warn (ctx:Slide | null, error_text:string, is_warn = false) : vo
   }
 }
 
-function send_warn ({ message, stack }, handle_error, is_warn) : void {
+function send_warn ({ message, stack = '' }, handle_error, is_warn) : void {
   const _stack = get_error_stack(stack);
   const space = '\u0020'.repeat(4);
   let err_str = `[tip]: ${message}\n\n`;
@@ -37,6 +43,7 @@ export type StackDetail = {
 }
 
 function get_error_stack (stack_msg) : StackDetail[] {
+  if (!stack_msg) { return []; }
   const arr = stack_msg.replace(/↵/g, '\n').split('\n');
   const stack:StackDetail[] = [];
 
