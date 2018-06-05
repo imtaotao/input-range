@@ -13,18 +13,18 @@ export function init_default_style (ctx:Slide) : void {
   const is_range_err = click_el_index < 0 ||
                        click_el_index > (<any>parent.parentElement).childElementCount - 1;
 
+  if (is_range_err) {
+    warn(ctx, '【click_el_index】 is not in the correct range');
+  }
+
   if (pointer_events) {
     dom.style.pointerEvents = 'auto';
     parent.style.pointerEvents = 'none';
   }
 
-  if (is_range_err) {
-    warn(ctx, '【click_el_index】 is not in the correct range');
-  }
-
   const position = getComputedStyle(parent).position;
   if (position === 'static') {
-    dom.style.position = 'relative'
+    dom.style.position = 'relative';
     return;
   }
   dom.style.position = 'absolute';

@@ -13,7 +13,7 @@ export function is_empty_obj (obj:Object) : boolean {
 }
 
 export function bind (fn:Function, ctx:Object) : Function {
-  function boundFn (a) {
+  function bound_fn (a) {
     const l: number = arguments.length;
     return l
       ? l > 1
@@ -22,8 +22,8 @@ export function bind (fn:Function, ctx:Object) : Function {
       : fn.call(ctx);
   }
   // record original fn length
-  (<any>boundFn)._length = fn.length;
-  return boundFn;
+  (<any>bound_fn)._length = fn.length;
+  return bound_fn;
 }
 
 export function random_num (min = 0, max = 100000) : number {

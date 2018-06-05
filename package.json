@@ -2,7 +2,7 @@
   "name": "input-range",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "./build",
   "scripts": {
     "i": "rm -rf ./node_modules && npm install",
     "clean": "rm -rf ./build",
@@ -33,5 +33,8 @@
     "url": "https://github.com/imtaotao/input-range.git"
   },
   "author": "supertaotao",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.4.0"
+  }
 }
