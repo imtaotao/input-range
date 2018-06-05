@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
-import { createSlide } from '../index';
+import { createSlide, Slide } from '../index';
+import { StackDetail } from '../debug';
 
 export interface SlideProps {
   direction?: 'x' | 'y',
   width: string;
   height: string;
   Zindex?: number;
+  default_value?: string;
   background_style?: Object;
   progress_style?: Object;
-  dots_style?: Object;
-  onerror?: Function;
-  onload?: Function;
-  oninput?: Function;
-  onchange?: Function;
+  dot_style?: Object;
+  onload?: (slide:Slide) => void;
+  onerror?: (msg:string, stack:StackDetail, error_str:string) => void;
+  oninput?: (value:number, el:HTMLElement, slide:Slide) => void;
+  onchange?: (value:number, el:HTMLElement, slide:Slide) => void;
+  options?: {
+    limit_area?: number;
+    pointer_events?: boolean;
+    prohibit_click?: boolean;
+    prohibit_move?: boolean;
+    click_el_index?: number;
+    expand_touch_area?: {
+      width: number | string;
+      height: number | string;
+    }
+  }
 }
 
 export default class SlideComponent extends Component<SlideProps, {}> {
@@ -27,6 +40,8 @@ export default class SlideComponent extends Component<SlideProps, {}> {
       onerror,
       oninput,
       onchange,
+      direction = 'x',
+      options = {},
     } = (this as any).props;
 
     if (!this.Dot) {
@@ -36,12 +51,8 @@ export default class SlideComponent extends Component<SlideProps, {}> {
 
     const slide = createSlide({
       point: this.Dot,
-      direction: 'y',
-      prohibit_click: false,
-      expand_touch_area: {
-        width: 40,
-        height: 40,
-      },
+      direction,
+      ...options,
     })
 
     onerror && (slide.onerror = onerror);
@@ -56,17 +67,18 @@ export default class SlideComponent extends Component<SlideProps, {}> {
     const {
         background_style = {},
         progress_style = {},
-        dots_style = {},
+        dot_style = {},
+        default_value = 0,
         direction = 'x',
         Zindex = 99,
     } = (this as any).props;
 
     return (
-      <div id="native" style={container_style((this as any).props, Zindex)}>
-        <span style={background_style(background_style, direction)}></span>
-        <span style={progress_style(background_style, direction)}>
+      <div style={get_container_style((this as any).props, Zindex)}>
+        <span style={get_background_style(background_style, direction)}></span>
+        <span style={get_progress_style(progress_style, direction, Number(default_value))}>
           <i
-            style={dots_style(dots_style, direction)}
+            style={get_dot_style(dot_style, direction)}
             ref={(ref) => { ref && (this.Dot = ref)}}>
           </i>
         </span>
@@ -75,7 +87,7 @@ export default class SlideComponent extends Component<SlideProps, {}> {
   }
 }
 
-function container_style ({width, height}, Zindex) : Object {
+function get_container_style ({width, height}:any, Zindex:number) : Object {
   return {
     position: 'relative',
     Zindex,
@@ -84,7 +96,7 @@ function container_style ({width, height}, Zindex) : Object {
   }
 }
 
-function background_style (style, direction) : Object {
+function get_background_style (style:any, direction: 'x' | 'y') : Object {
   const init_background_style = direction === 'x'
     ? {width: '100%'}
     : {height: '100%'};
@@ -97,10 +109,12 @@ function background_style (style, direction) : Object {
   }
 }
 
-function progress_style (style, direction) : Object {
+function get_progress_style (style:any, direction: 'x' | 'y', default_value:number) : Object {
+  default_value = Math.max(Math.min(default_value, 1), 0);
+
   const init_progress_style = direction === 'x'
     ? {
-      width: '50%',
+      width: `${default_value * 100}%`,
       paddingLeft: '7px',
     }
     : {
@@ -116,8 +130,8 @@ function progress_style (style, direction) : Object {
   }
 }
 
-function dots_style (style, direction) : Object {
-  const init_dots_style = direction === 'x'
+function get_dot_style (style:any, direction: 'x' | 'y') : Object {
+  const init_dot_style = direction === 'x'
     ? {
       marginTop: '-3px',
       right: 0,
@@ -137,7 +151,7 @@ function dots_style (style, direction) : Object {
     background: '#fff',
     boxShadow: '0 1px 3px 0 rgba(0,0,0,0.2)',
     borderRadius: '100px',
-    ...init_dots_style,
+    ...init_dot_style,
     ...style,
   }
 }

@@ -1,0 +1,8 @@
+#react {
+  position: relative;
+  left: 100px;
+  top: 100px;
+  width: 500px;
+  height: 200px;
+  border: 1px dashed #ddd;
+}

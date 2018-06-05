@@ -18,6 +18,7 @@ import {
 import {
   bind,
   is_undef,
+  is_number,
   is_boolen,
   is_string,
   is_empty_obj,
@@ -67,7 +68,7 @@ export interface Parameters {
 
 export interface SlideTypes {
   init () : Slide;
-  dispatch (event_type:'input' | 'change', value:number) : Slide;
+  dispatch (event_type:'input' | 'change', value:number, is_animate?:boolean) : Slide;
   prohibit_click (prohibit) : Slide;
 }
 
@@ -131,11 +132,12 @@ export class Slide implements SlideTypes {
     return this;
   }
 
-  public dispatch (event_type:'input' | 'change', value:number) : Slide {
-    if (value < 0 || value > 1) {
+  public dispatch (event_type:'input' | 'change', value:number, is_animate?:boolean) : Slide {
+    if (!is_number(value) || value < 0 || value > 1) {
       warn(this, `【${value}】 is not between 0 and 1`);
     }
-    dispatch(this, event_type, value);
+
+    dispatch(this, event_type, value, is_animate);
 
     return this;
   }

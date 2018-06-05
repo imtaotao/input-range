@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const el = document.querySelector('#native .dots') as HTMLElement;
   const slide = createSlide({
     point: el,
-    direction: 'y',
+    direction: 'x',
     prohibit_click: false,
     expand_touch_area: {
       width: 40,
@@ -14,8 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   slide.init();
-  type DefinitEvent = Event & { value?: number };
-  (<any>el.parentElement).oninput = (e:DefinitEvent) => console.log(e.value);;
+  type DefinitEvent = Event & { value: number };
+  (<any>el.parentElement).oninput = (e:DefinitEvent) => {
+    document.body.style.opacity = e.value + 0.1 + '';
+  };
+  (<any>el.parentElement).onchange = (e:DefinitEvent) => {
+    document.body.style.opacity = e.value + 0.1 + '';
+  };
+
   (window as any).s = slide;
 
   slide.onerror = (msg, stack, str) => {
@@ -23,5 +29,4 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(stack);
     console.error(str);
   }
-  setTimeout(() => (<any>slide).prohibit_click(1));
 })

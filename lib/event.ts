@@ -153,13 +153,19 @@ export function  mouseup_touchend_hook (ctx:Slide, e:DeEvent) {
   }, time);
 }
 
-export function dispatch (ctx:Slide, event_type:string, precent:number) : void {
+export function dispatch (ctx:Slide, event_type:string, precent:number, is_animate?:boolean) : void {
+  const parent:any = ctx.opts.parent;
+  
+  if (is_animate) {
+    parent.style.transition = 'all 0.2s ease';
+    setTimeout(() => parent.style.transition = '', 205);
+  }
+
   // alter slide bar position.
   alter_slider_bar(ctx, precent);
   ctx.value = precent;
 
   type DefinitEvent = Event & { value?: number; };
-  const parent:any = ctx.opts.parent;
   const event:DefinitEvent = new Event(event_type);
 
   // response event.
@@ -184,15 +190,13 @@ export function set_click_position (ctx:Slide, parent:HTMLElement) : ClickInstan
         ? layerX / get_width(sibling)
         : 1 - layerY / get_height(sibling);
 
-      parent.style.transition = 'all 0.2s ease';
-      dispatch(ctx, 'change', precent);
+      dispatch(ctx, 'change', precent, true);
 
       // reset slide state.
       setTimeout(() => {
         if (self_random_num !== random_number) { return; }
-        parent.style.transition = '';
         init(ctx);
-      }, 205)
+      }, 200)
     }
 
     return {

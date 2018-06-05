@@ -1,9 +1,13 @@
 /* width */
-/* #native {
+body {
+  background: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#d7ad6f), to(#bf7d78));
+}
+#native {
   position: relative;
-  top: 13px;
+  top: 100px;
+  left: 100px;
   width: 120px;
-  height: 20px;
+  height: 100px;
   z-index: 99;
 }
 #native span {
@@ -31,11 +35,11 @@
   background: #fff;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.20);
   border-radius: 100px;
-} */
+}
 
 
 /* height */
-#native {
+/* #native {
   position: relative;
   left: 100px;
   width: 20px;
@@ -66,4 +70,4 @@
   background: #fff;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.20);
   border-radius: 100px;
-}
+} */

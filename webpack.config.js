@@ -9,7 +9,7 @@ module.exports = {
     filename: "bundle.js",
   },
   resolve: {
-    extensions: ['.js', '.ts', '.json'],
+    extensions: ['.js', '.ts', '.json', '.tsx'],
   },
   devtool: 'source-map',
   devServer: {
@@ -29,7 +29,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(ts)?$/,
+        test: /\.(ts|tsx)?$/,
         use: [
           'babel-loader',
           'ts-loader',
