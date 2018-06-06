@@ -44,7 +44,7 @@ export default class SlideComponent extends Component<SlideProps, {}> {
       options = {},
     } = (this as any).props;
 
-    if (!this.Dot) {
+    if (!this.Dot && onload) {
       onload(false);
       return;
     }
