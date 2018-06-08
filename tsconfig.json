@@ -9,6 +9,7 @@
     "noImplicitReturns": true,
     "removeComments": true,
     "outDir": "build",
+    "allowJs": true,
     "inlineSourceMap": true,
     "baseUrl": ".",
     "strictNullChecks": true,

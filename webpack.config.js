@@ -9,7 +9,7 @@ module.exports = {
     filename: "bundle.js",
   },
   resolve: {
-    extensions: ['.js', '.ts', '.json', '.tsx'],
+    extensions: ['.js', '.ts', '.json', '.tsx', 'vue'],
   },
   devtool: 'source-map',
   devServer: {
