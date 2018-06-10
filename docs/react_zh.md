@@ -64,7 +64,7 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
 | width | slide bar 的宽度 | string | undefined |
 | height | slide bar 的高度 | string | undefined |
 | zIndex | container 的 zIndex | number | 99 |
-| direction | slide 的 direction | 'x' \|\| 'y' | 'x' |
+| direction | slide 的 direction | 'x' \|\| 'y' | 'x' |
 | default_value | 默认值 | string | '0' |
 | container_style | 容器元素的样式 | Object | {} |
 | background_style | 背景条的样式 | Object | {} |

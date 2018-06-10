@@ -1,6 +1,9 @@
 # Input range 🎉
+ [![NPM version][npm-image]][npm-url]
+ [![npm download][download-image]][download-url]
+ [![npm license][license-image]][download-url]
 
-InputRange 是一个滑动条插件，他模拟原生的 input range 组件，他默认让你可以高度自定义化`dom`结构和`css`样式，对于不想自己写`dom`结构和`css`样式的，也提供了`react`组件和`vue`组件，具体的用法你可以看[这里][example]
+InputRange 是一个滑动条插件，他模拟原生的 input range 组件，他默认让你可以高度自定义化`dom`结构和`css`样式，如果不想自己写`dom`结构和`css`样式，InputRange提供了`react`组件和`vue`组件，具体的用法可以看[这里][example]
 
 ## 关于 react 和 vue 组件
 + [react slide bar][react_doc]
@@ -157,3 +160,9 @@ or
 [oninput]:#oninput
 [onchange]:#onchange
 [onerror]:#onerror
+
+[npm-image]: https://img.shields.io/npm/v/input-range.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/input-range
+[download-image]: https://img.shields.io/npm/dm/input-range.svg?style=flat-square
+[download-url]: https://npmjs.org/package/input-range
+[license-image]: https://img.shields.io/npm/l/input-range.svg
