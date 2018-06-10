@@ -44,7 +44,7 @@ InputRange 有两种方式进行初始化
 | pointer_event | 是否给滑动条`style`添加`pointer-events`属性 | boolean | true |
 | prohibit_click | 是否禁止点击滑动条 | boolean | false |
 | prohibit_move | 是否禁止拖动滑动条 | boolean | false |
-| click_el_index | 指定`container` 的哪个元素触发`click`事件（下标从`0`开始） | number | 0 |
+| click_el_index | 指定`container` 的哪个元素触发`click`事件（下标从`0`开始） | number | 0 |
 | expand_touch_area | 扩展点击范围 | Object | undefined |
 
 ### expand_touch_area 描述
