@@ -153,13 +153,13 @@ or
 [react_doc]:./docs/react_zh.md
 [vue_doc]:./docs/vue_zh.md
 
-[init]:#init
+[init]:#init-1
 [dispatch]:#dispatch
 [prohibit_click]:#prohibit_click
 [prohibit_move]:#prohibit_move
-[oninput]:#oninput
-[onchange]:#onchange
-[onerror]:#onerror
+[oninput]:#oninput-1
+[onchange]:#onchange-1
+[onerror]:#onerror-1
 
 [npm-image]: https://img.shields.io/npm/v/input-range.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/input-range
