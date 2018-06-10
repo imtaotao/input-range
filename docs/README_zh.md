@@ -5,6 +5,15 @@
 
 InputRange 是一个滑动条插件，他模拟原生的 input range 组件，同时可以让你高度自定义`dom`结构和`css`样式，如果不想自己写`dom`结构和`css`样式，InputRange提供了`react`组件和`vue`组件。具体的用法可以看[这里][example]
 
+## 安装
+```
+  npm install input-range --save
+```
+or
+```
+  yarn add input-range
+```
+
 ## 关于 react 和 vue 组件
 + [react slide bar][react_doc]
 + [vue slide bar][vue_doc]
