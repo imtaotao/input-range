@@ -45,6 +45,7 @@ export interface SlideTypes {
     prohibit_click(prohibit: any): Slide;
 }
 export declare class Slide implements SlideTypes {
+    version: string;
     value: number;
     onchange: (value: number, el: HTMLElement, ctx: Slide) => void;
     oninput: (value: number, el: HTMLElement, ctx: Slide) => void;

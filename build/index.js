@@ -4,6 +4,7 @@ import { init, dispatch, } from './event';
 import { is_undef, is_number, is_boolen, is_string, is_empty_obj, } from './utils';
 var Slide = (function () {
     function Slide(options) {
+        this.version = 'v1.2.6';
         if (!options.point) {
             warn(null, '【options.point】 must a HTMLElement or query string');
         }

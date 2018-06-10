@@ -6,32 +6,32 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
   export default class SlideComponent extends Component {
     constructor (props) {
       super(props)
-      this.container_style = { ... }
+      this.container_style = {}
       // point style
-      this.dot_style = { ... }
+      this.dot_style = {}
       // slide bar backgrond style
-      this.background_style = { ... }
+      this.background_style = {}
       // slide bar progress style
-      this.progress_style = { ... }
+      this.progress_style = {}
       // Input Range options
       this.options = {}
     }
 
     onload (slide /* 如果加载失败，slide 会是 false */) {
       this.slide = slide
-      ...
+      // ...
     }
 
     onchange (value, progress_el, slide) {
-      ...
+      // ...
     }
 
     oninput (value, progress_el, slide) {
-
+      // ...
     }
 
     onerror (msg, stack) {
-      ...
+      // ...
     }
 
     render () {
@@ -61,11 +61,11 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
 
 |    Name    | Description | Type | Default |
 |------------|-------------|------|---------|
-| width | slide bar 的宽度 | string | undefined |
-| height | slide bar 的高度 | string | undefined |
+| width | slide bar 的宽度 | string | undefined |
+| height | slide bar 的高度 | string | undefined |
 | zIndex | container 的 zIndex | number | 99 |
 | direction | slide 的 direction | 'x' \|\| 'y' | 'x' |
-| default_value | 默认值 | string | '0' |
+| default_value | 默认值 | string | '0' |
 | container_style | 容器元素的样式 | Object | {} |
 | background_style | 背景条的样式 | Object | {} |
 | progress_style | slide bar 的样式 | Object | {} |
@@ -75,4 +75,5 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
 | onchange | InputRange onchange | Function | undefined |
 | onerror | InputRange onerror | Function | undefined |
 | options | InputRange opthins | Object | undefined |
+
 具体详细的用法可以看[这里](../example/react)

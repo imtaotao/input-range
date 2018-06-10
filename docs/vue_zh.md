@@ -35,16 +35,16 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
     }),
     methods: {
       oninput (value, progress_el, slide) {
-        ...
+        // ...
       },
       onchange (value, progress_el, slide) {
-        ...
+        // ...
       },
       onload (slide /* 如果加载失败，slide 会是 false */) {
-        ...
+        // ...
       },
       onerror (msg, stack) {
-
+        // ...
       }
     },
     components: { Slide },
@@ -57,11 +57,11 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
 
 |    Name    | Description | Type | Default |
 |------------|-------------|------|---------|
-| width | slide bar 的宽度 | string | undefined |
-| height | slide bar 的高度 | string | undefined |
+| width | slide bar 的宽度 | string | undefined |
+| height | slide bar 的高度 | string | undefined |
 | zIndex | container 的 zIndex | number | 99 |
-| direction | slide 的 direction | 'x' \|\| 'y' | 'x' |
-| default_value | 默认值 | string | '0' |
+| direction | slide 的 direction | 'x' \|\| 'y' | 'x' |
+| default_value | 默认值 | string | '0' |
 | background_style | 背景条的样式 | Object | {} |
 | progress_style | slide bar 的样式 | Object | {} |
 | dot_style | 按钮的样式 | Object | {} |

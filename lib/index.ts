@@ -67,6 +67,7 @@ export interface SlideTypes {
 }
 
 export class Slide implements SlideTypes {
+  public version = 'v1.2.6';
   public value:number;
   public onchange: (value:number, el:HTMLElement, ctx:Slide) => void;
   public oninput: (value:number, el:HTMLElement, ctx:Slide) => void;
