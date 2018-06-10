@@ -8,6 +8,7 @@ export interface SlideProps {
     height: string;
     Zindex?: number;
     default_value?: string;
+    container_style?: Object;
     background_style?: Object;
     progress_style?: Object;
     dot_style?: Object;

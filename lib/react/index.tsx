@@ -8,6 +8,7 @@ export interface SlideProps {
   height: string;
   Zindex?: number;
   default_value?: string;
+  container_style?:Object;
   background_style?: Object;
   progress_style?: Object;
   dot_style?: Object;
@@ -87,12 +88,13 @@ export default class SlideComponent extends Component<SlideProps, {}> {
   }
 }
 
-function get_container_style ({width, height}:any, Zindex:number) : Object {
+function get_container_style ({width, height, container_style = {}}:any, Zindex:number) : Object {
   return {
     position: 'relative',
     Zindex,
     width,
     height,
+    ...container_style,
   }
 }
 

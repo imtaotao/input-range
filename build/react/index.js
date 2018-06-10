@@ -31,13 +31,10 @@ var SlideComponent = (function (_super) {
 }(Component));
 export default SlideComponent;
 function get_container_style(_a, Zindex) {
-    var width = _a.width, height = _a.height;
-    return {
-        position: 'relative',
-        Zindex: Zindex,
+    var width = _a.width, height = _a.height, _b = _a.container_style, container_style = _b === void 0 ? {} : _b;
+    return tslib_1.__assign({ position: 'relative', Zindex: Zindex,
         width: width,
-        height: height,
-    };
+        height: height }, container_style);
 }
 function get_background_style(style, direction) {
     var init_background_style = direction === 'x'

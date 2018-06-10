@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Slide from '../../lib/vue';
+import Slide from '../../build/vue';
 
 export default {
   data: () => ({

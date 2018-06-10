@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import Slide from '../../lib/react';
+import Slide from '../../build/react';
 import './index.css';
 
 interface StateProps {
@@ -61,7 +61,6 @@ class SlideContainer extends React.Component<{}, StateProps> {
   }
 }
 
-console.log(require('react-dom'))
 ReactDOM.render(
   <SlideContainer />,
   document.getElementById('react')

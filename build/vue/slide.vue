@@ -55,9 +55,6 @@ export default {
     oninput: Function,
     onchange: Function,
   },
-  data: () => ({
-    Slide: null,
-  }),
   computed: {
     background_class () {
       return  `__background_${this.direction} __default_and_bar_${this.direction}`;
@@ -97,7 +94,6 @@ export default {
     onchange && (slide.onchange = onchange);
 
     onload && onload(slide);
-    this.Slide = slide;
   }
 }
 </script>

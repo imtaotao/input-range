@@ -1,5 +1,5 @@
 import './index.css';
-import { Slide, createSlide, Parameters } from '../../lib';
+import { Slide, createSlide, Parameters } from '../../build';
 
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.querySelector('#native .dots') as HTMLElement;
