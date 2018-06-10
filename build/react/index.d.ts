@@ -6,7 +6,7 @@ export interface SlideProps {
     direction?: 'x' | 'y';
     width: string;
     height: string;
-    Zindex?: number;
+    zIndex?: number;
     default_value?: string;
     container_style?: Object;
     background_style?: Object;

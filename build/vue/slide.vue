@@ -1,5 +1,5 @@
 <template>
-  <div class="__container" :style="{width, height, Zindex}">
+  <div class="__container" :style="{width, height, zIndex}">
     <span :class="background_class" :style="background_style"></span>
     <span :class="progress_class" :style="progress_style">
       <i ref="dot" :class="'__default_dot __dot_' + direction" :style="dot_style">
@@ -26,7 +26,7 @@ export default {
       type: String,
       required: true,
     },
-    Zindex: {
+    zIndex: {
       type: Number,
       default: 99,
     },

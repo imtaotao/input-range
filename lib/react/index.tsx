@@ -6,7 +6,7 @@ export interface SlideProps {
   direction?: 'x' | 'y',
   width: string;
   height: string;
-  Zindex?: number;
+  zIndex?: number;
   default_value?: string;
   container_style?:Object;
   background_style?: Object;
@@ -71,11 +71,11 @@ export default class SlideComponent extends Component<SlideProps, {}> {
         dot_style = {},
         default_value = 0,
         direction = 'x',
-        Zindex = 99,
+        zIndex = 99,
     } = (this as any).props;
 
     return (
-      <div style={get_container_style((this as any).props, Zindex)}>
+      <div style={get_container_style((this as any).props, zIndex)}>
         <span style={get_background_style(background_style, direction)}></span>
         <span style={get_progress_style(progress_style, direction, Number(default_value))}>
           <i
@@ -88,10 +88,10 @@ export default class SlideComponent extends Component<SlideProps, {}> {
   }
 }
 
-function get_container_style ({width, height, container_style = {}}:any, Zindex:number) : Object {
+function get_container_style ({width, height, container_style = {}}:any, zIndex:number) : Object {
   return {
     position: 'relative',
-    Zindex,
+    zIndex,
     width,
     height,
     ...container_style,
