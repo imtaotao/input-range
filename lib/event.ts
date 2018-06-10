@@ -1,4 +1,4 @@
-import { Slide, Parameters } from './index';
+import { Slide } from './index';
 import { bind, random_num, is_undef } from './utils';
 import {
   get_width,
@@ -106,8 +106,6 @@ export function mousemove (e:DeEvent) : void {
   !is_phone && e.preventDefault();
 
   const {
-      dom,
-      parent,
       total_x,
       total_y,
       revise_height,

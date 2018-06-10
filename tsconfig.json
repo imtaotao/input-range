@@ -9,14 +9,13 @@
     "noImplicitReturns": true,
     "removeComments": true,
     "outDir": "build",
-    "allowJs": true,
     "inlineSourceMap": true,
     "baseUrl": ".",
     "strictNullChecks": true,
     "alwaysStrict":true,
     "allowSyntheticDefaultImports": true,
-    "module": "ES6",
-    "target": "es6",
+    "module": "es6",
+    "target": "es5",
     "jsx": "react",
     "plugins": [
       { "name": "tslint-language-service"}

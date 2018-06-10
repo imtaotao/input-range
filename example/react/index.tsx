@@ -53,7 +53,7 @@ class SlideContainer extends React.Component<{}, StateProps> {
   }
 
   private onload (S:Slide) {
-    (window as any).ss =  this.S = S;
+    (window as any).rs =  this.S = S;
   }
 
   private oninput (value:number) {
@@ -61,11 +61,8 @@ class SlideContainer extends React.Component<{}, StateProps> {
   }
 }
 
-
-export function r_init () {
-  ReactDOM.render(
-    <SlideContainer />,
-    document.getElementById('react')
-  );
-}
-
+console.log(require('react-dom'))
+ReactDOM.render(
+  <SlideContainer />,
+  document.getElementById('react')
+);

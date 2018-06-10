@@ -1,5 +1,4 @@
 import { Slide } from './index';
-import { ClickInstance } from './event';
 
 export function get_now_percentage (ctx:Slide, parent:HTMLElement) : number {
   const direction = ctx.opts.direction;
@@ -55,7 +54,7 @@ export function get_percent (ctx:Slide, left:number, top:number) : any /* Actual
 }
 
 export function alter_slider_bar (ctx:Slide, precent:number) : void {
-  const { dom, parent, direction } = ctx.opts;
+  const { parent, direction } = ctx.opts;
 
   const attr = direction === 'x' ? 'width' : 'height';
   (<HTMLElement>parent).style[attr] = precent * 100 + '%';

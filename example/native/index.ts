@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.opacity = e.value + 0.1 + '';
   };
 
-  (window as any).s = slide;
+  (window as any).ns = slide;
 
   slide.onerror = (msg, stack, str) => {
     console.log(msg);

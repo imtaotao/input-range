@@ -1,7 +1,6 @@
 import { warn } from './debug';
 import { Slide, Parameters } from './index';
 import {
-  bind,
   is_undef,
   is_number,
 } from './utils';

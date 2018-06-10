@@ -1,3 +1,4 @@
+import { StackDetail } from './debug';
 import { ClickInstance } from './event';
 export interface DynamicAttr {
     expand_touch_dom: HTMLElement | 0;
@@ -40,17 +41,18 @@ export interface Parameters {
 }
 export interface SlideTypes {
     init(): Slide;
-    dispatch(event_type: 'input' | 'change', value: number): Slide;
+    dispatch(event_type: 'input' | 'change', value: number, is_animate?: boolean): Slide;
     prohibit_click(prohibit: any): Slide;
 }
 export declare class Slide implements SlideTypes {
     value: number;
     onchange: (value: number, el: HTMLElement, ctx: Slide) => void;
     oninput: (value: number, el: HTMLElement, ctx: Slide) => void;
+    onerror: (msg: string, stack: StackDetail, error_str: string) => void;
     opts: Options;
     constructor(options: Parameters);
     init(): Slide;
-    dispatch(event_type: 'input' | 'change', value: number): Slide;
+    dispatch(event_type: 'input' | 'change', value: number, is_animate?: boolean): Slide;
     prohibit_click(prohibit: boolean): Slide;
     prohibit_move(prohibit: boolean): Slide;
 }

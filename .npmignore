@@ -38,6 +38,9 @@ test/
 # self
 .npmignore
 
+#example
+example/
+
 # other configs
 tsconfig.json
 release.tsconfig.json

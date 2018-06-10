@@ -1,15 +1,13 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
 
 module.exports = {
-	entry: __dirname + "/test/index.ts",
+  entry: __dirname + "/example/index.ts",
   output: {
     path: __dirname,
-    filename: "bundle.js",
+    filename: "build.js",
   },
   resolve: {
-    extensions: ['.js', '.ts', '.json', '.tsx', 'vue'],
+    extensions: ['.js', '.ts', '.vue', '.tsx'],
   },
   devtool: 'source-map',
   devServer: {
@@ -22,24 +20,33 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /(\.js)$/,
+        test: /\.js$/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
         },
         exclude: /node_modules/,
       },
       {
-        test: /\.(ts|tsx)?$/,
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
+          }
+        }
+      },
+      {
+        test: /\.tsx$/,
+        exclude: /node_modules/,
         use: [
           'babel-loader',
-          'ts-loader',
-        ],
-        exclude: /node_modules/,
+          'ts-loader'
+        ]
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -48,10 +55,10 @@ module.exports = {
           'css-loader',
         ]
       },
-    ]
+    ],
   },
 	plugins: [
-    new webpack.BannerPlugin('Swop'),
+    new webpack.BannerPlugin('input-range'),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
 	],

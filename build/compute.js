@@ -1,6 +1,6 @@
 export function get_now_percentage(ctx, parent) {
-    const direction = ctx.opts.direction;
-    const grandfather = parent.parentElement;
+    var direction = ctx.opts.direction;
+    var grandfather = parent.parentElement;
     return direction === 'x'
         ? get_width(parent) / get_width(grandfather)
         : get_height(parent) / get_height(grandfather);
@@ -12,30 +12,29 @@ export function get_height(dom) {
     return parseInt(getComputedStyle(dom).height);
 }
 export function get_client_xy(e) {
-    const type = e.type.includes('touch');
-    const x = type
+    var type = e.type.includes('touch');
+    var x = type
         ? e.changedTouches[0].clientX
         : e.clientX;
-    const y = type
+    var y = type
         ? e.changedTouches[0].clientY
         : e.clientY;
-    return { x, y };
+    return { x: x, y: y };
 }
 export function get_percent(ctx, left, top) {
-    const { total_x, total_y, revise_height, revise_width, direction, last_y, limit_area, } = ctx.opts;
-    const is_normal_val = (val) => val > -limit_area && val < limit_area;
+    var _a = ctx.opts, total_x = _a.total_x, total_y = _a.total_y, revise_height = _a.revise_height, revise_width = _a.revise_width, direction = _a.direction, last_y = _a.last_y, limit_area = _a.limit_area;
+    var is_normal_val = function (val) { return val > -limit_area && val < limit_area; };
     if (direction === 'x' && is_normal_val(top)) {
-        const nowVal = left + revise_width;
+        var nowVal = left + revise_width;
         return nowVal / total_x;
     }
     if (direction === 'y' && is_normal_val(left)) {
-        const normal_y = total_y - last_y - revise_height / 2;
+        var normal_y = total_y - last_y - revise_height / 2;
         return (normal_y - top) / total_y;
     }
 }
 export function alter_slider_bar(ctx, precent) {
-    const { dom, parent, direction } = ctx.opts;
-    const attr = direction === 'x' ? 'width' : 'height';
+    var _a = ctx.opts, parent = _a.parent, direction = _a.direction;
+    var attr = direction === 'x' ? 'width' : 'height';
     parent.style[attr] = precent * 100 + '%';
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29tcHV0ZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uL2xpYi9jb21wdXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBLE1BQU0sNkJBQThCLEdBQVMsRUFBRSxNQUFrQjtJQUMvRCxNQUFNLFNBQVMsR0FBRyxHQUFHLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQztJQUNyQyxNQUFNLFdBQVcsR0FBRyxNQUFNLENBQUMsYUFBNEIsQ0FBQztJQUV4RCxNQUFNLENBQUMsU0FBUyxLQUFLLEdBQUc7UUFDdEIsQ0FBQyxDQUFDLFNBQVMsQ0FBQyxNQUFNLENBQUMsR0FBRyxTQUFTLENBQUMsV0FBVyxDQUFDO1FBQzVDLENBQUMsQ0FBQyxVQUFVLENBQUMsTUFBTSxDQUFDLEdBQUcsVUFBVSxDQUFDLFdBQVcsQ0FBQyxDQUFDO0FBQ25ELENBQUM7QUFFRCxNQUFNLG9CQUFxQixHQUFlO0lBQ3hDLE1BQU0sQ0FBQyxRQUFRLENBQU8sZ0JBQWdCLENBQUMsR0FBRyxDQUFFLENBQUMsS0FBSyxDQUFDLENBQUM7QUFDdEQsQ0FBQztBQUVELE1BQU0scUJBQXNCLEdBQWU7SUFDekMsTUFBTSxDQUFDLFFBQVEsQ0FBTyxnQkFBZ0IsQ0FBQyxHQUFHLENBQUUsQ0FBQyxNQUFNLENBQUMsQ0FBQztBQUN2RCxDQUFDO0FBRUQsTUFBTSx3QkFBeUIsQ0FBeUI7SUFDdEQsTUFBTSxJQUFJLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsT0FBTyxDQUFDLENBQUM7SUFDdEMsTUFBTSxDQUFDLEdBQUcsSUFBSTtRQUNaLENBQUMsQ0FBYyxDQUFFLENBQUMsY0FBYyxDQUFDLENBQUMsQ0FBQyxDQUFDLE9BQU87UUFDM0MsQ0FBQyxDQUFjLENBQUUsQ0FBQyxPQUFPLENBQUM7SUFFNUIsTUFBTSxDQUFDLEdBQUcsSUFBSTtRQUNaLENBQUMsQ0FBYyxDQUFFLENBQUMsY0FBYyxDQUFDLENBQUMsQ0FBQyxDQUFDLE9BQU87UUFDM0MsQ0FBQyxDQUFjLENBQUUsQ0FBQyxPQUFPLENBQUM7SUFFNUIsTUFBTSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDO0FBQ2xCLENBQUM7QUFFRCxNQUFNLHNCQUF1QixHQUFTLEVBQUUsSUFBVyxFQUFFLEdBQVU7SUFDN0QsTUFBTSxFQUNGLE9BQU8sRUFDUCxPQUFPLEVBQ1AsYUFBYSxFQUNiLFlBQVksRUFDWixTQUFTLEVBQ1QsTUFBTSxFQUNOLFVBQVUsR0FDYixHQUFHLEdBQUcsQ0FBQyxJQUFJLENBQUM7SUFDYixNQUFNLGFBQWEsR0FBRyxDQUFDLEdBQVUsRUFBRSxFQUFFLENBQUMsR0FBRyxHQUFHLENBQUMsVUFBVSxJQUFJLEdBQUcsR0FBRyxVQUFVLENBQUM7SUFFNUUsRUFBRSxDQUFDLENBQUMsU0FBUyxLQUFLLEdBQUcsSUFBSSxhQUFhLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxDQUFDO1FBQzVDLE1BQU0sTUFBTSxHQUFHLElBQUksR0FBRyxZQUFZLENBQUM7UUFDbkMsTUFBTSxDQUFDLE1BQU0sR0FBRyxPQUFPLENBQUM7SUFDMUIsQ0FBQztJQUVELEVBQUUsQ0FBQyxDQUFDLFNBQVMsS0FBSyxHQUFHLElBQUksYUFBYSxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQztRQUM3QyxNQUFNLFFBQVEsR0FBSSxPQUFPLEdBQUcsTUFBTSxHQUFHLGFBQWEsR0FBRyxDQUFDLENBQUM7UUFDdkQsTUFBTSxDQUFDLENBQUMsUUFBUSxHQUFHLEdBQUcsQ0FBQyxHQUFHLE9BQU8sQ0FBQztJQUNwQyxDQUFDO0FBQ0gsQ0FBQztBQUVELE1BQU0sMkJBQTRCLEdBQVMsRUFBRSxPQUFjO0lBQ3pELE1BQU0sRUFBRSxHQUFHLEVBQUUsTUFBTSxFQUFFLFNBQVMsRUFBRSxHQUFHLEdBQUcsQ0FBQyxJQUFJLENBQUM7SUFFNUMsTUFBTSxJQUFJLEdBQUcsU0FBUyxLQUFLLEdBQUcsQ0FBQyxDQUFDLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxRQUFRLENBQUM7SUFDdEMsTUFBTyxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsR0FBRyxPQUFPLEdBQUcsR0FBRyxHQUFHLEdBQUcsQ0FBQztBQUMxRCxDQUFDIn0=

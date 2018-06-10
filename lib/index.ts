@@ -2,12 +2,6 @@ import { warn, StackDetail } from './debug';
 import { expand_touch, init_default_style } from './expand';
 
 import {
-  get_width,
-  get_height,
-  get_now_percentage,
-} from './compute';
-
-import {
   init,
   dispatch,
   mousedown,
@@ -81,7 +75,7 @@ export class Slide implements SlideTypes {
 
   public constructor (options:Parameters) {
     if (!options.point) {
-      warn(null, `【${options.point}】 must a HTMLElement or query string`);
+      warn(null, '【options.point】 must a HTMLElement or query string');
     }
     if (is_string(options.point)) {
       (<Element | null>options.point) = document.querySelector((<string>options.point));
@@ -133,8 +127,11 @@ export class Slide implements SlideTypes {
   }
 
   public dispatch (event_type:'input' | 'change', value:number, is_animate?:boolean) : Slide {
+    if (event_type !== 'input' && event_type !== 'change') {
+      warn(this, '【dispatch event type】must be "input" or "change"');
+    }
     if (!is_number(value) || value < 0 || value > 1) {
-      warn(this, `【${value}】 is not between 0 and 1`);
+      warn(this, '【dispatch value】 is not between 0 and 1');
     }
 
     dispatch(this, event_type, value, is_animate);

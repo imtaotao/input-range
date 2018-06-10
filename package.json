@@ -4,11 +4,11 @@
   "description": "",
   "main": "./build",
   "scripts": {
-    "i": "rm -rf ./node_modules && npm install",
+    "i": "rm -rf ./node_modules && yarn",
     "clean": "rm -rf ./build",
     "start": "webpack-dev-server",
-    "build": "npm run clean && tsc --project ./release.tsconfig.json",
-    "build:dev": "npm run clean && tsc --pretty --noEmitOnError",
+    "build": "yarn clean && tsc --project ./release.tsconfig.json && node ./build_vue.js",
+    "build:dev": "yarn clean && tsc --pretty --noEmitOnError && node ./build_vue.js",
     "watch": "tsc --watch --pretty --noEmitOnError"
   },
   "devDependencies": {
@@ -21,13 +21,12 @@
     "html-webpack-plugin": "^2.30.1",
     "style-loader": "^0.18.2",
     "ts-loader": "^3.5.0",
-    "tslib": "^1.9.0",
+    "tslib": "^1.9.2",
     "typescript": "2.5.3",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7",
-    "vue-loader": "^15.2.4",
-    "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.3.3"
+    "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
     "react": "^16.4.0",
@@ -36,7 +35,9 @@
   },
   "keywords": [
     "input",
-    "range"
+    "range",
+    "slide",
+    "progress"
   ],
   "repository": {
     "type": "git",
