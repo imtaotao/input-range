@@ -3,7 +3,7 @@
  [![npm download][download-image]][download-url]
  [![npm license][license-image]][download-url]
 
-### [中文文档](./docs/README_zh)
+### [中文文档](./docs/README_zh.md)
 
 InputRange is a slide bar plugin, he simulates native `input range` component and makes you can highly customize the `dom` structure and the `css` style, if you don't want write `dom` structure and `css` style by yourself, InputRange provided `react` component and `vue` component. Detailed usage can be seen [here][example]
 
@@ -47,7 +47,7 @@ you can initialize appropriately after `slide` instance be created, for example,
 | height | height | number \|\| string |
 
 
-## 实例属性
+## Instance attributes 
 ### value
 `siide.value` record current slider value, value range is `0` to `1`. It should be noted that the slide will be set to the default value according to the css value of the `slide progress` during initialization. slide doesn't provide `default value` interface, so you can achieve default value by `html` structure or `dispatch` method.
 
@@ -85,7 +85,7 @@ or
 + #### [`prohibit_click(prohibit)`][prohibit_click]
 + #### [`prohibit_move(prohibit)`][prohibit_move]
 
-## 钩子函数
+## Hook functions
 + #### [`oninput`][oninput]
 + #### [`onchange`][onchange]
 + #### [`onerror`][onerror]
