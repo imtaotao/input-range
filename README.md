@@ -3,51 +3,54 @@
  [![npm download][download-image]][download-url]
  [![npm license][license-image]][download-url]
 
-InputRange 是一个滑动条插件，他模拟原生的 input range 组件，他默认让你可以高度自定义化`dom`结构和`css`样式，如果不想自己写`dom`结构和`css`样式，InputRange提供了`react`组件和`vue`组件，具体的用法可以看[这里][example]
+### [中文文档](./docs/README_zh)
 
-## 关于 react 和 vue 组件
+InputRange is a slide bar plugin, he simulates native `input range` component and makes you can highly customize the `dom` structure and the `css` style, if you don't want write `dom` structure and `css` style by yourself, InputRange provided `react` component and `vue` component. Detailed usage can be seen [here][example]
+
+## About react and vue component
 + [react slide bar][react_doc]
 + [vue slide bar][vue_doc]
 
-## 如何使用
-InputRange 有两种方式进行初始化
+## How to use
+InputRange has two ways to initialize
 ```js
   const { Slide, createSlide } from 'input-range'
 
-  // 第一种
+  // The first
   const slide = new Slide(options)
   slide.init()
 
-  // 第二种
+  // The second
   const slide = createSlide(options)
   slide.init()
 ```
-当`slide`实例被创建后，你可以在适当的时候进行初始化，比如当某个`dom`元素最开始被隐藏，某个时刻被显示出来的时候
+you can initialize appropriately after `slide` instance be created, for example, a `dom` element initially hidden and later displayed
 
-## options 描述
-`options` 除了 `point` 之外，都是可选的
+## options description
+`options` except `point`，are all optional
 
 |    Name    | Description | Type | Default |
 |------------|-------------|------|---------|
-| point | 滑动条按钮 | element \|\| string | undefined |
-| direction  | 滑动条活动方向 | 'x' \|\| 'y' | 'x' |
-| limit_area | 拖动时候限制范围 | number | 100 |
-| pointer_event | 是否给滑动条`style`添加`pointer-events`属性 | boolean | true |
-| prohibit_click | 是否禁止点击滑动条 | boolean | false |
-| prohibit_move | 是否禁止拖动滑动条 | boolean | false |
-| click_el_index | 点击的时候，`container` 的第几个元素触发`click`事件，从`0`开始 | number | 0 |
-| expand_touch_area | 扩展点击范围 | Object | undefined |
+| point | slider button | element \|\| string | undefined |
+| direction  | slider active direction | 'x' \|\| 'y' | 'x' |
+| limit_area | limit range while draging | number | 100 |
+| pointer_event | whether to add the `pointer-events` attribute to the `style` of the slider  | boolean | true |
+| prohibit_click | whether to prohibit clicking slider | boolean | false |
+| prohibit_move | whether to prohibit draging slider | boolean | false |
+| click_el_index | Specifing which element of container triggers the click event (index starts from 0) | number | 0 |
+| expand_touch_area | expand touch range | Object | undefined |
 
-### expand_touch_area 描述
+### expand_touch_area description
 |    Name    | Description | Type |
 |------------|-------------|------|
-| width | 宽 | number \|\| string |
-| height | 高 | number \|\| string |
+| width | width | number \|\| string |
+| height | height | number \|\| string |
 
 
 ## 实例属性
 ### value
-`slide.value` 记录着当前滑动条的值，值为 0 - 1。需要另外说明的是，slide 会在 init 的时候根据 slide progress 的 css 值进行默认值的设定，slide 没有提供 default value 接口，因此你可以通过 `html` 结构和 `dispatch` 两种方式，来实现默认值
+`siide.value` record current slider value, value range is `0` to `1`. It should be noted that the slide will be set to the default value according to the css value of the `slide progress` during initialization. slide doesn't provide `default value` interface, so you can achieve default value by `html` structure or `dispatch` method.
+
 ```html
   <div class="container">
     <span class="background"></span>
@@ -63,7 +66,7 @@ InputRange 有两种方式进行初始化
   </style> 
 
   <script>
-    // 如果 direction 为 'x' 
+    // If direction is 'x'
     const slide = new Slide(options)
     slide.init()
     slide.value // 0.3
@@ -88,23 +91,26 @@ or
 + #### [`onerror`][onerror]
 
 ## init
-你可以在任何时候使用`init`方法进行参数重置
+You can use `init` method to reset parameters in anytime.
+
 ```js
   const slide = new Slide(options)
   slide.init()
 ```
 
 ## dispatch
-你可以手动触发事件，没错，`dispatch` 一下
+You can trigger the event manually, yeah! `dispatch`.
+
 ```js
-  // event type 只能为 input 或者 change
-  // value 只能在 0 - 1 之间取值
-  // 你可选择是否用过度动画
+  // event type must be input or change
+  // value must be between 0 and 1
+  // you can use transition animate
   slide.dispatch('input', 1, true)
 ```
 
 ## prohibit_click
-此方法用来禁止点击 slide bar 或者 取消禁止点击 slide bar
+This method use to prohibit clicking slide bar or cancel.
+
 ```js
   slide.prohibit_click(true)
   // or
@@ -112,7 +118,8 @@ or
 ```
 
 ## prohibit_move
-此方法用来禁止滑动 slide bar 或者 取消禁止滑动 slide bar
+This method use to prohibit draging slide bar or cancel.
+
 ```js
   slide.prohibit_move(true)
   // or
@@ -120,13 +127,15 @@ or
 ```
 
 ## oninput
-你可以把这个方法类似比作原生 `input range` 组件的 `input` 事件的回调
+You can compare this method to the callback of the `input` event of the native `input range` component.
+
 ```js
   slide.oninput = function(value, progress_el, slide) {
     ...
   }
 ```
-你还可以通过给 `html` 元素注册 input 事件来实现相同的效果
+You also can achieve similiar effect by rigistering `input` event on `html` element.
+
 ```html
   <span class="progress" id="p"></span>
 
@@ -139,10 +148,11 @@ or
 ``` 
 
 ## onchange
-`onchange` 钩子函数与 `oninput` 类似，同样是模拟原生 `change` 事件，除了需要把 `input` 换成 `change` 之外
+The `onchange` hook function is similiar with `oninput`, which is also simulating the native `change` event, except that you need to change `input` to `change`.
 
 ## onerror
-`onerror` 函数用来接收 InputRange 发出的错误
+The `onerror` hook function accept error which InputRange send.
+
 ```js
   slide.onerror = function (err_msg, stacks) {
     ...
@@ -150,8 +160,8 @@ or
 ```
 
 [example]:./example
-[react_doc]:./docs/react_zh.md
-[vue_doc]:./docs/vue_zh.md
+[react_doc]:./docs/react_en.md
+[vue_doc]:./docs/vue_en.md
 
 [init]:#init-1
 [dispatch]:#dispatch
