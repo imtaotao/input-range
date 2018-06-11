@@ -1,13 +1,15 @@
-import { warn } from './debug';
-import { is_undef, is_number, } from './utils';
-import { get_width } from './compute';
-export function init_default_style(ctx) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var debug_1 = require("./debug");
+var compute_1 = require("./compute");
+var utils_1 = require("./utils");
+function init_default_style(ctx) {
     var _a = ctx.opts, dom = _a.dom, pointer_events = _a.pointer_events, click_el_index = _a.click_el_index;
     var parent = dom.parentElement;
     var is_range_err = click_el_index < 0 ||
         click_el_index > parent.parentElement.childElementCount - 1;
     if (is_range_err) {
-        warn(ctx, '【click_el_index】 is not in the correct range');
+        debug_1.warn(ctx, '【click_el_index】 is not in the correct range');
     }
     if (pointer_events) {
         dom.style.pointerEvents = 'auto';
@@ -20,7 +22,8 @@ export function init_default_style(ctx) {
     }
     dom.style.position = 'absolute';
 }
-export function expand_touch(ctx, el, area) {
+exports.init_default_style = init_default_style;
+function expand_touch(ctx, el, area) {
     var _a = check_and_respose(ctx, area), dom = _a.dom, parent = _a.parent, css_text = _a.css_text, expand_div = _a.expand_div;
     var first = true;
     watch_dom_display(dom, function (_a) {
@@ -38,14 +41,15 @@ export function expand_touch(ctx, el, area) {
     parent.appendChild(expand_div);
     ctx.opts.expand_touch_dom = expand_div;
 }
+exports.expand_touch = expand_touch;
 function check_and_respose(ctx, _a) {
     var width = _a.width, height = _a.height;
-    is_undef(width) && warn(ctx, 'Missing attribute【width】in expand_touch_area');
-    is_undef(height) && warn(ctx, 'Missing attribute【height】in expand_touch_area');
-    is_number(width) && (width += 'px');
-    is_number(height) && (height += 'px');
+    utils_1.is_undef(width) && debug_1.warn(ctx, 'Missing attribute【width】in expand_touch_area');
+    utils_1.is_undef(height) && debug_1.warn(ctx, 'Missing attribute【height】in expand_touch_area');
+    utils_1.is_number(width) && (width += 'px');
+    utils_1.is_number(height) && (height += 'px');
     var _b = ctx.opts, dom = _b.dom, direction = _b.direction;
-    var point_width_half = get_width(dom) / 2;
+    var point_width_half = compute_1.get_width(dom) / 2;
     var css_text = "width:" + width + "; height:" + height + ";" +
         'position:absolute;' +
         'pointer-events:auto;' +

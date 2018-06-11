@@ -1,4 +1,6 @@
-export function warn(ctx, error_text, is_warn) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function warn(ctx, error_text, is_warn) {
     if (is_warn === void 0) { is_warn = false; }
     var handle_error = ctx ? ctx.onerror : null;
     if (error_text instanceof Error) {
@@ -14,6 +16,7 @@ export function warn(ctx, error_text, is_warn) {
         send_warn(err, handle_error, is_warn);
     }
 }
+exports.warn = warn;
 function send_warn(_a, handle_error, is_warn) {
     var message = _a.message, _b = _a.stack, stack = _b === void 0 ? '' : _b;
     var _stack = get_error_stack(stack);

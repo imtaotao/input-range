@@ -1,10 +1,10 @@
 import { warn } from './debug';
-import { Slide, Parameters } from './index';
+import { Slide } from './index';
+import { get_width } from './compute';
 import {
   is_undef,
   is_number,
 } from './utils';
-import { get_width, get_height } from './compute';
 
 export function init_default_style (ctx:Slide) : void {
   const { dom, pointer_events, click_el_index} = ctx.opts;
@@ -101,5 +101,5 @@ const createMutationObserver = (() => {
     (<any>window).WebKitMutationObserver ||
     (<any>window).MozMutationObserver;
 
-  return (...args) : MutationObserver  => new M(...args);
+  return (...args) : MutationObserver => new M(...args);
 })();

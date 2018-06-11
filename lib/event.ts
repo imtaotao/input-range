@@ -19,7 +19,7 @@ export function init (ctx:Slide) : void {
   // Avoid "move" and "click" events affecting each other.
   remove_init_event(ctx);
 
-  const { dom, direction, click_el_index, expand_touch_dom } = ctx.opts;
+  const { dom, expand_touch_dom } = ctx.opts;
   const parent = <HTMLElement>dom.parentElement;
   const grandpa = <HTMLElement>parent.parentElement;
   const init_event_fn:any = bind(mousedown, ctx);
@@ -67,7 +67,7 @@ export function mousedown (e:DeEvent) : void {
   if (this.opts.prohibit_move) { return; }
   const ctx:Slide = this;
   const { x, y } = get_client_xy(e);
-  const { dom, parent, click_instance } = ctx.opts;
+  const { dom, click_instance } = ctx.opts;
   const touchmove:any = bind(mousemove, ctx);
 
   // Clear click events to avoid interference.
@@ -153,7 +153,7 @@ export function  mouseup_touchend_hook (ctx:Slide, e:DeEvent) {
 
 export function dispatch (ctx:Slide, event_type:string, precent:number, is_animate?:boolean) : void {
   const parent:any = ctx.opts.parent;
-  
+
   if (is_animate) {
     parent.style.transition = 'all 0.2s ease';
     setTimeout(() => parent.style.transition = '', 205);

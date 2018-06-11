@@ -4,9 +4,7 @@ import { expand_touch, init_default_style } from './expand';
 import {
   init,
   dispatch,
-  mousedown,
   ClickInstance,
-  set_click_position,
 } from './event';
 
 import {
@@ -75,6 +73,9 @@ export class Slide implements SlideTypes {
   public opts: Options;
 
   public constructor (options:Parameters) {
+    if (!options || typeof options !== 'object') {
+      warn(null, '【options】 must a object, detailed usage can be seen here. https://github.com/imtaotao/input-range');
+    }
     if (!options.point) {
       warn(null, '【options.point】 must a HTMLElement or query string');
     }
