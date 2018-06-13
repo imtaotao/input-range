@@ -6,7 +6,7 @@ var event_1 = require("./event");
 var utils_1 = require("./utils");
 var Slide = (function () {
     function Slide(options) {
-        this.version = 'v1.2.6';
+        this.version = 'v1.2.7';
         if (!options || typeof options !== 'object') {
             debug_1.warn(null, '【options】 must a object, detailed usage can be seen here. https://github.com/imtaotao/input-range');
         }

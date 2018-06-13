@@ -7,8 +7,8 @@
     "i": "rm -rf ./node_modules && yarn",
     "clean": "rm -rf ./build",
     "start": "webpack-dev-server",
-    "build": "yarn clean && tsc --project ./release.tsconfig.json && node ./build_vue.js",
-    "build:dev": "yarn clean && tsc --pretty --noEmitOnError && node ./build_vue.js",
+    "build": "yarn clean && tsc --project ./release.tsconfig.json && node ./build_file.js",
+    "build:dev": "yarn clean && tsc --pretty --noEmitOnError && node ./build_file.js",
     "watch": "tsc --watch --pretty --noEmitOnError"
   },
   "devDependencies": {
