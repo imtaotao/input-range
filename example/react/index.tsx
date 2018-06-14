@@ -37,7 +37,7 @@ class SlideContainer extends React.Component<{}, StateProps> {
 
         react - slide bar
 
-        <Slide 
+        <Slide
           width='300px'
           height='50px'
           direction='x'

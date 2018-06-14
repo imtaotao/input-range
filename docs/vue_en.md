@@ -19,7 +19,7 @@ InputRange provided vue component, you can use by following way.
 </template>
 
 <script>
-  import Slide from 'input-range/vue';
+  import Slide from 'input-range/build/vue';
   export default {
     data: () => ({
       width: '300px',

@@ -1,7 +1,7 @@
 InputRange 提供了 react 组件，你可以通过以下方式来使用
 ```js
   import React, { Component } from 'react'
-  import { Slide } from 'input-range/react'
+  import { Slide } from 'input-range/build/react'
 
   export default class SlideComponent extends Component {
     constructor (props) {
@@ -37,7 +37,7 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
     render () {
       return (
         <div>
-          <Slide 
+          <Slide
             width='300px'
             height='50px'
             direction='x'
@@ -57,7 +57,7 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
   }
 ```
 ## props
-除了 `width` 和 `height`，其余的都是可选的 
+除了 `width` 和 `height`，其余的都是可选的
 
 |    Name    | Description | Type | Default |
 |------------|-------------|------|---------|

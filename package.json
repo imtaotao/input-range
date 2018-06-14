@@ -1,8 +1,9 @@
 {
   "name": "input-range",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "",
   "main": "./build",
+  "module": "./build",
   "scripts": {
     "i": "rm -rf ./node_modules && yarn",
     "clean": "rm -rf ./build",

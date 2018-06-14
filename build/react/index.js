@@ -1,4 +1,3 @@
-"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -17,9 +16,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = require("react");
-var index_1 = require("../index");
+import React, { Component } from 'react';
+import { createSlide } from '../index';
 var SlideComponent = (function (_super) {
     __extends(SlideComponent, _super);
     function SlideComponent(props) {
@@ -31,7 +29,7 @@ var SlideComponent = (function (_super) {
             onload(false);
             return;
         }
-        var slide = index_1.createSlide(__assign({ point: this.Dot, direction: direction }, options));
+        var slide = createSlide(__assign({ point: this.Dot, direction: direction }, options));
         onerror && (slide.onerror = onerror);
         oninput && (slide.oninput = oninput);
         onchange && (slide.onchange = onchange);
@@ -41,14 +39,14 @@ var SlideComponent = (function (_super) {
     SlideComponent.prototype.render = function () {
         var _this = this;
         var _a = this.props, _b = _a.background_style, background_style = _b === void 0 ? {} : _b, _c = _a.progress_style, progress_style = _c === void 0 ? {} : _c, _d = _a.dot_style, dot_style = _d === void 0 ? {} : _d, _e = _a.default_value, default_value = _e === void 0 ? 0 : _e, _f = _a.direction, direction = _f === void 0 ? 'x' : _f, _g = _a.zIndex, zIndex = _g === void 0 ? 99 : _g;
-        return (react_1.default.createElement("div", { style: get_container_style(this.props, zIndex) },
-            react_1.default.createElement("span", { style: get_background_style(background_style, direction) }),
-            react_1.default.createElement("span", { style: get_progress_style(progress_style, direction, Number(default_value)) },
-                react_1.default.createElement("i", { style: get_dot_style(dot_style, direction), ref: function (ref) { ref && (_this.Dot = ref); } }))));
+        return (React.createElement("div", { style: get_container_style(this.props, zIndex) },
+            React.createElement("span", { style: get_background_style(background_style, direction) }),
+            React.createElement("span", { style: get_progress_style(progress_style, direction, Number(default_value)) },
+                React.createElement("i", { style: get_dot_style(dot_style, direction), ref: function (ref) { ref && (_this.Dot = ref); } }))));
     };
     return SlideComponent;
-}(react_1.Component));
-exports.default = SlideComponent;
+}(Component));
+export default SlideComponent;
 function get_container_style(_a, zIndex) {
     var width = _a.width, height = _a.height, _b = _a.container_style, container_style = _b === void 0 ? {} : _b;
     return __assign({ position: 'relative', zIndex: zIndex,

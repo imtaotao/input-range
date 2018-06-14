@@ -8,7 +8,6 @@ import {
 } from './event';
 
 import {
-  bind,
   is_undef,
   is_number,
   is_boolen,

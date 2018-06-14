@@ -18,7 +18,7 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
 </template>
 
 <script>
-  import Slide from 'input-range/vue';
+  import Slide from 'input-range/build/vue';
   export default {
     data: () => ({
       width: '300px',
@@ -53,7 +53,7 @@ InputRange 提供了 react 组件，你可以通过以下方式来使用
 ```
 
 ## props
-除了 `width` 和 `height`，其余的都是可选的 
+除了 `width` 和 `height`，其余的都是可选的
 
 |    Name    | Description | Type | Default |
 |------------|-------------|------|---------|

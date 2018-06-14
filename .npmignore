@@ -41,11 +41,16 @@ test/
 #example
 example/
 
+#docs
+docs/
+
 # other configs
+webpack.config.js
 tsconfig.json
 release.tsconfig.json
 index.ts
 index.html
 webpack.config.json
 types.ts
-build_vue.js
+build_file.js
+binaries/

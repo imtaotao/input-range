@@ -2,7 +2,7 @@ InputRange provided react component, you can use by following way.
 
 ```js
   import React, { Component } from 'react'
-  import { Slide } from 'input-range/react'
+  import { Slide } from 'input-range/build/react'
 
   export default class SlideComponent extends Component {
     constructor (props) {
@@ -38,7 +38,7 @@ InputRange provided react component, you can use by following way.
     render () {
       return (
         <div>
-          <Slide 
+          <Slide
             width='300px'
             height='50px'
             direction='x'
