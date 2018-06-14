@@ -7,6 +7,9 @@
 
 InputRange is a slide bar plugin, he simulates native `input range` component and makes you can highly customize the `dom` structure and the `css` style, if you don't want write `dom` structure and `css` style by yourself, InputRange provided `react` component and `vue` component. Detailed usage can be seen [here][example]
 
+## Effect
+<video src='./docs/img/demo.mp4' autoplay="autoplay"></video>
+
 ## Installation
 ```
   npm install input-range --save
@@ -56,7 +59,7 @@ you can initialize appropriately after `slide` instance be created, for example,
 | height | height | number \|\| string |
 
 
-## Instance attributes 
+## Instance attributes
 ### value
 `siide.value` record current slider value, value range is `0` to `1`. It should be noted that the slide will be set to the default value according to the css value of the `slide progress` during initialization. slide doesn't provide `default value` interface, so you can achieve default value by `html` structure or `dispatch` method.
 
@@ -72,14 +75,14 @@ you can initialize appropriately after `slide` instance be created, for example,
     .progress {
       width: 30%;
     }
-  </style> 
+  </style>
 
   <script>
     // If direction is 'x'
     const slide = new Slide(options)
     slide.init()
     slide.value // 0.3
-  </script>  
+  </script>
 ```
 or
 ```js
@@ -154,7 +157,7 @@ You also can achieve similiar effect by rigistering `input` event on `html` elem
       ...
     })
   </script>
-``` 
+```
 
 ## onchange
 The `onchange` hook function is similiar with `oninput`, which is also simulating the native `change` event, except that you need to change `input` to `change`.
