@@ -8,7 +8,7 @@
 InputRange is a slide bar plugin, he simulates native `input range` component and makes you can highly customize the `dom` structure and the `css` style, if you don't want write `dom` structure and `css` style by yourself, InputRange provided `react` component and `vue` component. Detailed usage can be seen [here][example]
 
 ## Effect
-<video src='./docs/img/demo.mp4' autoplay="autoplay"></video>
+![effect](./docs/img/demo.gif)
 
 ## Installation
 ```
